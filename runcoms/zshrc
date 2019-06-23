@@ -26,8 +26,17 @@ export VISUAL='vim'
 # Initialize LMOD for modules
 . /usr/local/opt/lmod/init/zsh
 export OPT=$HOME/opt
-module use -a /Users/rmahajan/opt/modulefiles/core
-module use -a /Users/rmahajan/opt/modulefiles/apps
+module use -a $OPT/modulefiles/core
+module use -a $OPT/modulefiles/apps
+
+# Auto extension stuff
+alias -s c=$EDITOR
+alias -s cc=$EDITOR
+alias -s f90=$EDITOR
+alias -s java=$EDITOR
+alias -s php=$EDITOR
+alias -s html=$BROWSER
+alias -s htm=$BROWSER
 
 # Set user-defined aliases
 test -e "${HOME}/.bash_aliases" && source "${HOME}/.bash_aliases"
