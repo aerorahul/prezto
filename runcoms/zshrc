@@ -11,3 +11,26 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# Add . and $HOME/bin to path
+path=(
+  .
+  $HOME/bin
+  $path
+)
+
+# Editors
+export EDITOR='vim'
+export VISUAL='vim'
+
+# Initialize LMOD for modules
+. /usr/local/opt/lmod/init/zsh
+export OPT=$HOME/opt
+module use -a /Users/rmahajan/opt/modulefiles/core
+module use -a /Users/rmahajan/opt/modulefiles/apps
+
+# Set user-defined aliases
+test -e "${HOME}/.bash_aliases" && source "${HOME}/.bash_aliases"
+
+# Add iterm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
