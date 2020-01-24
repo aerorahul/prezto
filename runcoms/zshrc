@@ -24,10 +24,12 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 # Initialize LMOD for modules
-. /usr/local/opt/lmod/init/zsh
-export OPT=$HOME/opt
-module use -a $OPT/modulefiles/core
-module use -a $OPT/modulefiles/apps
+if [[ -s /usr/local/opt/lmod/init/zsh ]]; then
+  source /usr/local/opt/lmod/init/zsh
+  export OPT=$HOME/opt
+  module use -a $OPT/modulefiles/core
+  module use -a $OPT/modulefiles/apps
+fi
 
 # Auto extension stuff
 alias -s c=$EDITOR
