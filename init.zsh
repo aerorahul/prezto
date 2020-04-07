@@ -17,6 +17,22 @@ if ! autoload -Uz is-at-least || ! is-at-least "$min_zsh_version"; then
 fi
 unset min_zsh_version
 
+# zprezto convenience syncer with sorin-ionescu's master
+# The function is surrounded by ( ) instead of { } so it starts in a subshell
+# and won't affect the environment of the calling shell
+function zprezto-sync-sorin {
+  (
+    cd -q -- "${ZPREZTODIR}" || return 7
+    git remote remove upstream
+    git remote add upstream https://github.com/sorin-ionescu/prezto
+    git fetch upstream
+    git checkout master
+    git merge upstream/master
+    git push
+    git remote remove upstream
+  )
+}
+
 # zprezto convenience updater
 # The function is surrounded by ( ) instead of { } so it starts in a subshell
 # and won't affect the environment of the calling shell
@@ -44,7 +60,7 @@ function zprezto-update {
         printf "There is an update available. Trying to pull.\n\n"
         if git pull --ff-only; then
           printf "Syncing submodules\n"
-          git submodule update --recursive
+          git submodule update --init --recursive
           return $?
         else
           cannot-fast-forward
@@ -98,18 +114,20 @@ function pmodload {
     else
       locations=(${pmodule_dirs:+${^pmodule_dirs}/$pmodule(-/FN)})
       if (( ${#locations} > 1 )); then
-        print "$0: conflicting module locations: $locations"
-        continue
+        if ! zstyle -t ':prezto:load' pmodule-allow-overrides 'yes'; then
+          print "$0: conflicting module locations: $locations"
+          continue
+        fi
       elif (( ${#locations} < 1 )); then
         print "$0: no such module: $pmodule"
         continue
       fi
 
       # Grab the full path to this module
-      pmodule_location=${locations[1]}
+      pmodule_location=${locations[-1]}
 
       # Add functions to $fpath.
-      fpath=(${pmodule_location}/functions(/FN) $fpath)
+      fpath=(${pmodule_location}/functions(-/FN) $fpath)
 
       function {
         local pfunction
