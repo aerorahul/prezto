@@ -25,7 +25,8 @@ export VISUAL='vim'
 
 # Initialize LMOD for modules
 . /usr/local/opt/lmod/init/zsh
-export OPT=$HOME/opt
+export OPT=/opt/modules
+export JEDI_OPT=$OPT
 module use -a $OPT/modulefiles/core
 module use -a $OPT/modulefiles/apps
 
