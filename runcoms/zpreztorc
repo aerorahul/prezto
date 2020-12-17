@@ -41,7 +41,9 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git' \
   'syntax-highlighting' \
-  'history-substring-search'
+  'history-substring-search' \
+  'osx' \
+  'rsync'
 
 #
 # Autosuggestions
@@ -83,7 +85,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 #
 
 # Set the command prefix on non-GNU systems.
-# zstyle ':prezto:module:gnu-utility' prefix 'g'
+zstyle ':prezto:module:gnu-utility' prefix 'g'
 
 #
 # History Substring Search
