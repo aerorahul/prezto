@@ -19,6 +19,13 @@ path=(
   $path
 )
 
+# Add . $HOME/bin etc. to cdpath
+cdpath=(
+  .
+  $HOME
+  $HOME/scratch
+)
+
 # Editors
 export EDITOR='vim'
 export VISUAL='vim'
@@ -39,6 +46,7 @@ alias -s java=$EDITOR
 alias -s php=$EDITOR
 alias -s html=$BROWSER
 alias -s htm=$BROWSER
+alias -s py=$EDITOR
 
 # Set user-defined aliases
 test -e "${HOME}/.bash_aliases" && source "${HOME}/.bash_aliases"
